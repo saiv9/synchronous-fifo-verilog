@@ -1,0 +1,31 @@
+name: FIFO RTL Simulation
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  simulate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Icarus Verilog
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y iverilog
+
+      - name: Run depth 8 and depth 5 simulations
+        run: bash scripts/run_sim.sh
+
+      - name: Upload logs and waveforms
+        uses: actions/upload-artifact@v4
+        with:
+          name: fifo-simulation-results
+          path: build/
+          if-no-files-found: error
