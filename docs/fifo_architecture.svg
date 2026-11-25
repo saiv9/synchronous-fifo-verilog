@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="570" viewBox="0 0 1200 570" role="img" aria-labelledby="title desc">
+  <title id="title">Synchronous FIFO architecture</title>
+  <desc id="desc">A synchronous FIFO containing a memory array, write pointer, read pointer, occupancy counter, and full and empty status logic.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7f9fc; }
+      .panel { fill: #ffffff; stroke: #243247; stroke-width: 2; rx: 12; }
+      .soft { fill: #eaf0f7; stroke: #52657d; stroke-width: 1.8; rx: 10; }
+      .status { fill: #eef5ee; stroke: #527652; stroke-width: 1.8; rx: 10; }
+      .title { font: 700 25px Arial, sans-serif; fill: #172335; }
+      .heading { font: 700 18px Arial, sans-serif; fill: #172335; }
+      .body { font: 15px Arial, sans-serif; fill: #34445a; }
+      .small { font: 13px Arial, sans-serif; fill: #53657b; }
+      .signal { fill: none; stroke: #375a7f; stroke-width: 2.4; marker-end: url(#arrow); }
+      .feedback { fill: none; stroke: #527652; stroke-width: 2.2; marker-end: url(#arrowGreen); }
+      .bus { fill: none; stroke: #6d7e91; stroke-width: 2; stroke-dasharray: 7 5; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#375a7f"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#527652"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1200" height="570" rx="16"/>
+  <text class="title" x="40" y="48">Synchronous FIFO — functional architecture</text>
+  <text class="small" x="40" y="73">One clock domain · rising-edge operation · parameterized width and depth</text>
+
+  <rect class="panel" x="40" y="115" width="210" height="120"/>
+  <text class="heading" x="60" y="148">Write interface</text>
+  <text class="body" x="60" y="177">data_in · wr_en</text>
+  <text class="small" x="60" y="204">Accepted when not full</text>
+
+  <rect class="panel" x="40" y="335" width="210" height="120"/>
+  <text class="heading" x="60" y="368">Read interface</text>
+  <text class="body" x="60" y="397">rd_en · data_out</text>
+  <text class="small" x="60" y="424">Accepted when not empty</text>
+
+  <rect class="soft" x="345" y="115" width="220" height="120"/>
+  <text class="heading" x="385" y="151">Write pointer</text>
+  <text class="body" x="382" y="181">Selects write address</text>
+  <text class="small" x="388" y="207">Wraps at DEPTH − 1</text>
+
+  <rect class="soft" x="345" y="335" width="220" height="120"/>
+  <text class="heading" x="390" y="371">Read pointer</text>
+  <text class="body" x="382" y="401">Selects read address</text>
+  <text class="small" x="388" y="427">Wraps at DEPTH − 1</text>
+
+  <rect class="panel" x="665" y="190" width="245" height="190"/>
+  <text class="heading" x="735" y="226">Memory array</text>
+  <rect class="soft" x="700" y="245" width="175" height="32"/>
+  <rect class="soft" x="700" y="284" width="175" height="32"/>
+  <rect class="soft" x="700" y="323" width="175" height="32"/>
+  <text class="small" x="762" y="266">Word 0</text>
+  <text class="small" x="762" y="305">Word 1</text>
+  <text class="small" x="750" y="344">… Word DEPTH−1</text>
+
+  <rect class="status" x="990" y="125" width="170" height="105"/>
+  <text class="heading" x="1038" y="160">Status</text>
+  <text class="body" x="1023" y="188">full · empty</text>
+  <text class="small" x="1022" y="211">From occupancy</text>
+
+  <rect class="status" x="990" y="300" width="170" height="105"/>
+  <text class="heading" x="1018" y="335">Count</text>
+  <text class="body" x="1020" y="363">0 to DEPTH</text>
+  <text class="small" x="1018" y="386">Accepted operations</text>
+
+  <path class="signal" d="M250 164 H345"/>
+  <path class="signal" d="M565 175 H665"/>
+  <path class="signal" d="M250 395 H345"/>
+  <path class="signal" d="M565 395 H615 V348 H665"/>
+  <path class="bus" d="M250 190 H300 V255 H665"/>
+  <path class="bus" d="M250 420 H300 V325 H665"/>
+  <path class="feedback" d="M910 270 H950 V177 H990"/>
+  <path class="feedback" d="M910 330 H950 V352 H990"/>
+  <path class="feedback" d="M1075 230 V300"/>
+  <path class="bus" d="M990 195 H955 V470 H455 V455"/>
+  <path class="bus" d="M990 370 H930 V500 H455 V455"/>
+
+  <text class="small" x="40" y="525">Write and read pointers move only when their respective requests are accepted.</text>
+  <text class="small" x="40" y="547">The occupancy counter increments, decrements, or holds based on the accepted operation pair.</text>
+</svg>
